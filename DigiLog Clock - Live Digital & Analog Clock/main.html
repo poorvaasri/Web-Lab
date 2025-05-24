@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="style.css" />
+<title>Clock</title>
+<style>
+  body {
+    background-color: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .digital {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    user-select: none;
+  }
+
+  .analog-clock {
+    display: flex;
+    justify-content: center;
+  }
+
+  .clock-face {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border: 8px solid #eee;
+    border-radius: 50%;
+    background: #222;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+
+  .hand {
+    position: absolute;
+    background: #eee;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center; /* pivot from bottom center */
+    transform: rotate(0deg);
+    transition: all 0.05s ease-in-out;
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
+  .hour {
+    width: 8px;
+    height: 80px;
+    background: #ffbb33;
+    z-index: 3;
+    margin-left: -4px; /* half width to center */
+    margin-top: -80px; /* height to move above center */
+  }
+
+  .minute {
+    width: 6px;
+    height: 110px;
+    background: #3399ff;
+    z-index: 2;
+    margin-left: -3px;
+    margin-top: -110px;
+  }
+
+  .second {
+    width: 3px;
+    height: 130px;
+    background: #ff4444;
+    z-index: 1;
+    margin-left: -1.5px;
+    margin-top: -130px;
+  }
+
+  .center-dot {
+    position: absolute;
+    background: #eee;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Analog & Digital Clock</h1>
+    <div class="digital">
+      <div id="time">00:00:00</div>
+      <div id="date">Loading date...</div>
+    </div>
+
+    <div class="analog-clock">
+      <div class="clock-face">
+        <div class="hand hour" id="hour-hand"></div>
+        <div class="hand minute" id="minute-hand"></div>
+        <div class="hand second" id="second-hand"></div>
+        <div class="center-dot"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+
+    // Digital clock update
+    const h = now.getHours();
+    const m = now.getMinutes();
+    const s = now.getSeconds();
+
+    const hStr = h.toString().padStart(2, '0');
+    const mStr = m.toString().padStart(2, '0');
+    const sStr = s.toString().padStart(2, '0');
+
+    document.getElementById('time').textContent = `${hStr}:${mStr}:${sStr}`;
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+
+    // Calculate rotation degrees:
+    // Each hand rotates around center with pivot at bottom center:
+    //  - hour hand: 360deg/12 hours + minute progress
+    //  - minute hand: 360deg/60 minutes + second progress
+    //  - second hand: 360deg/60 seconds
+
+    const secondsDeg = (s / 60) * 360;
+    const minutesDeg = (m / 60) * 360 + (s / 60) * 6;
+    const hoursDeg = ((h % 12) / 12) * 360 + (m / 60) * 30;
+
+    document.getElementById('second-hand').style.transform = `rotate(${secondsDeg}deg)`;
+    document.getElementById('minute-hand').style.transform = `rotate(${minutesDeg}deg)`;
+    document.getElementById('hour-hand').style.transform = `rotate(${hoursDeg}deg)`;
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
