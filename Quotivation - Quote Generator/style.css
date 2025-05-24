@@ -1,0 +1,125 @@
+/* Reset + base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    color: #fff;
+  
+    /* Center card horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Animated background */
+  .background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index: -1;
+  }
+  
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  
+  /* Card container */
+  .card {
+    position: relative;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Title */
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  /* Heart icon top-right */
+  .heart {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #aaa; /* gray when not favorited */
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  
+  .heart.favorited {
+    color: red; /* fully red fill */
+  }
+  
+  
+  /* Quote box */
+  .quote-box {
+    margin: 0;
+    min-height: 120px;
+    transition: opacity 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Quote text */
+  .quote-text {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+  
+  /* Quote author */
+  .quote-author {
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    font-style: italic;
+    color: #f0e4ff;
+  }
+  
+  /* Category Overlay styles (added in JS but base styles here) */
+  #category-overlay button {
+    background: #fff;
+    color: #222;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+    user-select: none;
+    min-width: 120px;
+  }
+  
+  #category-overlay button:hover {
+    background: #f0f0f0;
+  }
+  
+  @media (max-width: 600px) {
+    .quote-text {
+      font-size: 1.2rem;
+    }
+  }
