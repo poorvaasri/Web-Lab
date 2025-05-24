@@ -23,7 +23,7 @@ An enhanced version of the quote generator with UI improvements and additional f
 
 ---
 
-## 🔧 How to Run
+## How to Run
 
 1. Clone the repository:
    ```bash
@@ -32,4 +32,4 @@ An enhanced version of the quote generator with UI improvements and additional f
 
 3. Open the main.html file (or equivalent) in your browser to run the project.
 
-###⭐ If you find these projects helpful, please consider giving the repo a star!
+### ⭐ If you find these projects helpful, please consider giving the repo a star!
